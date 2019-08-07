@@ -1,4 +1,6 @@
-![](yshinaction.gif)
+<p align="center">
+  <img src="yshinaction.gif">
+</p>
 
 the yikes shell (also known as ysh) is a basic shell for linux-based systems.
 as of right now, it's basically just a hobby of mine and has no real competition with
@@ -15,10 +17,13 @@ only revolves around the single Makefile in the root directory:
 
 to install to /usr/bin:
 `cd ysh`
+
 `make`
+
 `make install`
 
 and then all you have to do is type:
+
 `ysh`
 
 and you'll be in!
