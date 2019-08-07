@@ -171,15 +171,31 @@ void helpmenu(void){
 ysh, (C) 2019 kevinshome\n", stdout);
 }
 
+static struct option const longopts[] =
+{
+  {"help", no_argument, NULL, 'h'},
+  {"version", no_argument, NULL, 'v'}
+};
+
 int arghandle(int argc, char **argv){
-  for (int i = 1; i < argc; ++i){
-      if((strcmp(argv[i], "--help") == 0) || (strcmp(argv[i], "-h") == 0)){
-          helpmenu();
-      }else if((strcmp(argv[i], "--version") == 0) || (strcmp(argv[i], "-v") == 0)){
-          printf("0.0.0\n"); //print program version
+  int optc;
+
+  while ((optc = getopt_long (argc, argv, "hv", longopts, NULL)) != -1)
+  {
+    switch (optc)
+      {
+        case 'h':
+        helpmenu();
+        break;
+
+        case 'v':
+        printf("ysh 0.0.0\n");
+        break;
+
       }
-    }
-    return 0;
+  }
+
+  return 0;
 }
 
 
