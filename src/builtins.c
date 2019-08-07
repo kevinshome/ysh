@@ -23,7 +23,8 @@ char *builtin_str[] = {
   "exit",
   "echo",
   "eboys?",
-  "which"
+  "which",
+  "hello"
 };
 
 int ysh_num_builtins() {
@@ -33,6 +34,11 @@ int ysh_num_builtins() {
 /*
   Builtin function implementations.
 */
+
+int ysh_hello(char **args){
+  printf("hello there, i'm ysh!\ni suck right now, but i'm soon to be your favorite shell!\n(hopefully)\n");
+  return 1;
+}
 
 int ysh_which(char **args){
   int i;
@@ -90,5 +96,6 @@ int (*builtin_func[]) (char **) = {
   &ysh_exit,
   &ysh_echo,
   &ysh_eboys,
-  &ysh_which
+  &ysh_which,
+  &ysh_hello
 };
