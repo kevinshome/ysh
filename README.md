@@ -14,14 +14,15 @@ go ahead and clone ysh today (fork it too if you want, why not, right?):
 
 ## installation
 
-the installation process for ysh is pretty easy, as it
-only revolves around the single Makefile in the root directory:
-
 requirements to build from source:
 
   - libreadline-dev (i'm not sure what the lowest version ysh will support is, but the current release is preferred)
 
+the installation process for ysh is pretty easy, as it
+only revolves around the single Makefile in the root directory:
+
 to install to /usr/bin:
+
 `cd ysh`
 
 `make`
