@@ -33,6 +33,12 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include <ysh/defines.h>
 #include <ysh/builtins.h>
 
+int release = 0;
+/*
+0 > regular binary build
+1 > nightly build
+2 (or really anything else) > development (github master branch) release
+*/
 extern char *repstr(char *str, char *orig, char *rep);
 void ysh(void);
 
@@ -197,9 +203,18 @@ void helpmenu(void){
 -v, --version    show program version and exit\n\
 -h, --help       show this menu and exit\n\n\
 ysh, (C) 2019 kevinshome\n", stdout);
-    /* fputs("\n\
+    if(release == 0){
+    fputs("\n\
 built using gcc 8.3.0 on debian stretch\n\
-this binary was built with lots of love on 09.07.2019\n", stdout); */ //this part is for when i build binaries, ignore it
+this binary was built with lots of love on xx.xx.2019\n", stdout);
+} else if(release == 1){
+      fputs("\n\
+built using gcc 8.3.0 on debian stretch (nightly build)\n\
+this binary was built with lots of love on xx.xx.2019\n", stdout);
+    } else{
+      fputs("\n\
+ysh development release\n", stdout);
+    }
 }
 
 static struct option const longopts[] =
