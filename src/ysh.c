@@ -34,6 +34,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include <ysh/builtins.h>
 
 extern char *repstr(char *str, char *orig, char *rep);
+void ysh(void);
 
 char *read_line(void){
   char *line = NULL;
@@ -118,7 +119,6 @@ int yshexec(char **args)
       return (*builtin_func[i])(args);
     }
   }
-
   return ysh_start(args);
 }
 
@@ -134,6 +134,25 @@ int ysh_hist_mgmt(char *line){
   free(histfname);
 
   return 1;
+}
+
+void signal_callback_handle(){
+  /*
+  okay so, a little explanation of why i've set this up like i have
+
+  1). the SIGINT callback handler has to be void, so i can't simply return a value, bc gcc gets mad at me
+  2). i can't just define hiimcarl (look, jimmy neutron was the shit) and not use it, bc gcc gets mad at me
+
+  either way, this setup returns no compile-time errors, and does what it needs to successfully
+  so don't critique it, and especially don't put it on r/badcode, please.
+  thx,
+  mgmt
+  */
+
+  int hiimcarl = 0;
+  if(hiimcarl != 0){
+    hiimcarl = 0;
+  }
 }
 
 void ysh(void){
@@ -212,6 +231,11 @@ int arghandle(int argc, char **argv){
 
 
 int main(int argc, char **argv){
+
+  signal(SIGINT, signal_callback_handle);
+  //signal(SIGTSTP, signal_callback_handle);
+  // i'll implement this later when i find a fix bc as of right now, pressing ctrl-z will crash the entire fucking console
+
   if(argc > 1){
     arghandle(argc, argv);
   }else{
