@@ -113,12 +113,6 @@ int yshexec(char **args)
     return 1;
   }
 
-/*  for (i=0; i < 8; i++){
-    if (strstr(args[i], "|") != NULL){
-      printf("piper found");
-    }
-  } */
-
   for (i = 0; i < ysh_num_builtins(); i++) {
     if (strcmp(args[0], builtin_str[i]) == 0) {
       return (*builtin_func[i])(args);
@@ -184,6 +178,9 @@ void helpmenu(void){
 -v, --version    show program version and exit\n\
 -h, --help       show this menu and exit\n\n\
 ysh, (C) 2019 kevinshome\n", stdout);
+    /* fputs("\n\
+built using gcc 8.3.0 on debian stretch\n\
+this binary was built with lots of love on 09.07.2019\n", stdout); */ //this part is for when i build binaries, ignore it
 }
 
 static struct option const longopts[] =
@@ -204,7 +201,7 @@ int arghandle(int argc, char **argv){
         break;
 
         case 'v':
-        printf("ysh 0.0.0\n");
+        printf("ysh 0.1\njet fuel can't melt steel beams\n");
         break;
 
       }
