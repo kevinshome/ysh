@@ -128,6 +128,20 @@ int yshexec(char **args)
   return ysh_start(args);
 }
 
+int ysh_hist_mgmt(char *line){
+
+  char *histfname = malloc(128);
+  char *user = getenv("USER");
+
+  sprintf(histfname, "%s%s%s", "/home/", user, "/.ysh_hist");
+  repstr(line, "\n", "");
+  add_history(line);
+  write_history(histfname);
+  free(histfname);
+
+  return 1;
+}
+
 void ysh(void){
     char *line;
     char **args;
@@ -152,9 +166,10 @@ void ysh(void){
         cwd = repstr(cwd, "/home/noah", "~");
       }
 
-      printf("\33[36m %s@%s (%s) \33[37m \n> ", user, hostname, cwd);
+      printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
 
-      line = read_line();
+      line = readline("> ");
+      ysh_hist_mgmt(line);
       args = split_line(line);
       status = yshexec(args);
 

@@ -24,7 +24,7 @@ char *builtin_str[] = {
   "echo",
   "eboys?",
   "which",
-  "hello"
+  "hello",
 };
 
 int ysh_num_builtins() {
@@ -97,5 +97,5 @@ int (*builtin_func[]) (char **) = {
   &ysh_echo,
   &ysh_eboys,
   &ysh_which,
-  &ysh_hello
+  &ysh_hello,
 };

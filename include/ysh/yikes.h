@@ -16,6 +16,7 @@ a copy of the MIT License can also be found at https://opensource.org/licenses/M
 #include <sys/wait.h>
 
 #include <readline/history.h>
+#include <readline/readline.h>
 
 #include <unistd.h>
 #include <stdlib.h>

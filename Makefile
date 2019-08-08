@@ -13,6 +13,7 @@
 CC = gcc -I include -c
 LD = gcc
 CCDEBUG = gcc -g -Wall -I include -c
+INCLUDES = -lreadline
 
 CL := \033[1;34m
 NC := \033[0m
@@ -26,7 +27,7 @@ files := ysh.c builtins.c remchar.c
 		$(CC) $(folder)$$file ; \
 	done
 	echo " 	$(CL)LD *.o$(NC)"
-	$(LD) *.o -o ysh
+	$(LD) $(INCLUDES) *.o -o ysh
 	echo "Cleaning up..."
 	rm *.o
 	echo "Done!"
@@ -37,7 +38,7 @@ debug:
 		$(CCDEBUG) $(folder)$$file ; \
 	done
 	echo " 	$(CL)LD *.o$(NC)"
-	$(LD) *.o -o ysh
+	$(LD) $(INCLUDES) *.o -o ysh
 	echo "Cleaning up..."
 	rm *.o
 	echo "Done!"
