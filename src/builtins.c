@@ -17,6 +17,8 @@ a copy of the MIT License can also be found at https://opensource.org/licenses/M
 
 extern int remchar(char *s, char c);
 extern int ysh_start(char **args);
+extern char **split_line(char *line);
+extern int yshexec(char **args);
 
 char *builtin_str[] = {
   "cd",
@@ -43,6 +45,7 @@ int notinarr = 1;
 
 char **aliases_lt;
 char **definitions_lt;
+char *tptr1, *tptr2;
 
 int ysh_alias(char **args){
 
@@ -85,14 +88,35 @@ int ysh_alias(char **args){
       }
     }else{
 
-      int alias_len = strlen(args[1]);
-      int def_len = strlen(args[2]);
+      if(args[3] == NULL){
+        int alias_len = strlen(args[1]);
+        int def_len = strlen(args[2]);
 
-      aliases_lt[alias_num] = malloc(alias_len + 5);
-      definitions_lt[alias_num] = malloc(def_len + 5);
+        aliases_lt[alias_num] = malloc(alias_len + 5);
+        definitions_lt[alias_num] = malloc(def_len + 5);
 
-      sprintf(aliases_lt[alias_num], "%s", args[1]);
-      sprintf(definitions_lt[alias_num], "%s", args[2]);
+        sprintf(aliases_lt[alias_num], "%s", args[1]);
+        sprintf(definitions_lt[alias_num], "%s", args[2]);
+      }else{
+        tptr1 = malloc(128);
+        tptr2 = malloc(128);
+
+        for(int i = 2; i < 4; i++){
+          strcat(tptr2, args[i]);
+          strcat(tptr2, " ");
+        }
+
+        int alias_len = strlen(args[1]);
+        int def_len = strlen(tptr2);
+
+        aliases_lt[alias_num] = malloc(alias_len + 5);
+        definitions_lt[alias_num] = malloc(def_len + 5);
+
+        sprintf(aliases_lt[alias_num], "%s", args[1]);
+        sprintf(definitions_lt[alias_num], "%s", tptr2);
+        free(tptr1);
+        free(tptr2);
+      }
       alias_num++;
     }
   }
