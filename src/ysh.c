@@ -41,7 +41,7 @@ int release = 2;
 */
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
-int ysh_aliaschk(char *line);
+int ysh_aliaschk(char **args);
 
 char *read_line(void){
   char *line = NULL;
@@ -129,12 +129,10 @@ int yshexec(char **args)
     return ysh_start(args);
 }
 
-int ysh_aliaschk(char *line){
+int ysh_aliaschk(char **args){
   for (int i = 0; i < alias_num; i++) {
-    if (strstr(line, aliases_lt[i]) == 0) {
+    if (strcmp(args[0], aliases_lt[i]) == 0) {
       return 2;
-    } else{
-      return 1;
     }
   }
   return 1;
@@ -201,13 +199,8 @@ void ysh(void){
 
       line = readline("> ");
       ysh_hist_mgmt(line);
-
-      if(ysh_aliaschk(line) == 2){
-        ;
-      }
-
       args = split_line(line);
-/*
+
       if(ysh_aliaschk(args) == 2){
         for (int i = 0; i < alias_num; i++) {
           if (strcmp(args[0], aliases_lt[i]) == 0) {
@@ -244,9 +237,6 @@ void ysh(void){
                 j++;
               }
 
-              strncat(argstr, fullargs, 16);
-
-              printf(argstr);
               printf("%s, %s, %s\n", fullargs[0], fullargs[1], fullargs[7]);
 
               status = yshexec(fullargs);
@@ -254,9 +244,9 @@ void ysh(void){
               free(newargs);
           }
         }
-      } */
+      } else{
         status = yshexec(args);
-
+      }
 
       free(line);
       free(args);
