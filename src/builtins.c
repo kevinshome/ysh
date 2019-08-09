@@ -54,7 +54,7 @@ int ysh_alias(char **args){
   if(strcmp("list",args[1]) == 0){
     int i;
     for (i = 0; i < alias_num; i++){
-      printf("%s\n", aliases_lt[i]);
+      printf("%s >> %s\n", aliases_lt[i], definitions_lt[i]);
     }
   }else {
     if(alias_num == alias_max - 1){

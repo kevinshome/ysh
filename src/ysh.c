@@ -33,7 +33,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include <ysh/defines.h>
 #include <ysh/builtins.h>
 
-int release = 0;
+int release = 2;
 /*
 0 > regular binary build
 1 > nightly build
@@ -250,8 +250,37 @@ int arghandle(int argc, char **argv){
   return 0;
 }
 
+int ysh_init(char *filename){
+  char line[100];
+  FILE *file = fopen(filename, "r");
+
+  while (fgets(line, 100, file) != NULL) {
+
+    char *init_line = malloc(128);
+    char **init_args;
+
+    strcpy(init_line, line);
+
+    init_args = split_line(init_line);
+    yshexec(init_args);
+
+    free(init_line);
+    free(init_args);
+
+  }
+
+  return 1;
+}
 
 int main(int argc, char **argv){
+
+  //ysh init
+  char *user = getenv("USER");
+  char *filename = malloc(128);
+  sprintf(filename, "%s%s%s", "/home/", user, "/.yshrc");
+  ysh_init(filename);
+  free(filename);
+  //end ysh init
 
   signal(SIGINT, signal_callback_handle);
   //signal(SIGTSTP, signal_callback_handle);
