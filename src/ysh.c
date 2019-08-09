@@ -125,13 +125,19 @@ int yshexec(char **args)
       return (*builtin_func[i])(args);
     }
   }
+  return ysh_start(args);
+}
+
+int ysh_aliaschk(char **args){
+  int i;
+
   for (i = 0; i < alias_num; i++) {
     if (strcmp(args[0], aliases_lt[i]) == 0) {
       args[0] = definitions_lt[i];
-      return ysh_start(args);
+      yshexec(args);
     }
   }
-  return ysh_start(args);
+  return 1;
 }
 
 int ysh_hist_mgmt(char *line){

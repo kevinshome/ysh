@@ -39,6 +39,7 @@ int ysh_num_builtins() {
 int alias_num = 0;
 int alias_max = 5;
 int do_not_alloc = 0;
+int notinarr = 1;
 
 char **aliases_lt;
 char **definitions_lt;
@@ -58,8 +59,21 @@ int ysh_alias(char **args){
     }
   }else {
     if(args[2] == NULL){
-      printf("not enough arguments to create alias\n");
-      return 1;
+      for (int i = 0; i < alias_num; i++){
+        if(strcmp(args[1], aliases_lt[i]) == 0){
+          printf("%s >> %s\n", aliases_lt[i], definitions_lt[i]);
+          notinarr = 0;
+        }else{
+          continue;
+        }
+      }
+      if(notinarr == 0){
+        notinarr = 1;
+        return 1;
+      }else if(notinarr == 1){
+        printf("%s: not an alias\n", args[1]);
+        return 1;
+      }
     }
     if(alias_num == alias_max - 1){
       alias_max = alias_max + 5;
