@@ -16,5 +16,9 @@ extern int ysh_cd(char **args);
 extern int ysh_exit(char **args);
 extern int ysh_echo(int argc, char **argv);
 extern int ysh_num_builtins();
+
+extern char **aliases_lt;
+extern char **definitions_lt;
+
 extern char *builtin_str[];
 extern int (*builtin_func[]) (char **);

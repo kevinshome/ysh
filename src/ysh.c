@@ -40,7 +40,7 @@ int release = 0;
 2 (or really anything else) > development (github master branch) release
 */
 extern char *repstr(char *str, char *orig, char *rep);
-void ysh(void);
+extern int alias_num;
 
 char *read_line(void){
   char *line = NULL;
@@ -123,6 +123,12 @@ int yshexec(char **args)
   for (i = 0; i < ysh_num_builtins(); i++) {
     if (strcmp(args[0], builtin_str[i]) == 0) {
       return (*builtin_func[i])(args);
+    }
+  }
+  for (i = 0; i < alias_num; i++) {
+    if (strcmp(args[0], aliases_lt[i]) == 0) {
+      args[0] = definitions_lt[i];
+      return ysh_start(args);
     }
   }
   return ysh_start(args);

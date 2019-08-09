@@ -25,6 +25,7 @@ char *builtin_str[] = {
   "eboys?",
   "which",
   "hello",
+  "alias"
 };
 
 int ysh_num_builtins() {
@@ -34,6 +35,51 @@ int ysh_num_builtins() {
 /*
   Builtin function implementations.
 */
+
+int alias_num = 0;
+int alias_max = 5;
+int do_not_alloc = 0;
+
+char **aliases_lt;
+char **definitions_lt;
+
+int ysh_alias(char **args){
+
+  if(do_not_alloc == 0){
+    aliases_lt = malloc(sizeof(*aliases_lt) * alias_max);
+    definitions_lt = malloc(sizeof(*definitions_lt) * alias_max);
+    do_not_alloc++;
+  }
+
+  if(strcmp("list",args[1]) == 0){
+    int i;
+    for (i = 0; i < alias_num; i++){
+      printf("%s\n", aliases_lt[i]);
+    }
+  }else {
+    if(alias_num == alias_max - 1){
+      alias_max = alias_max + 5;
+
+      char **temp_array = realloc(aliases_lt, sizeof(*aliases_lt) * alias_max);
+      if (temp_array)
+      {
+          aliases_lt = temp_array;
+      }
+    }else{
+
+      int alias_len = strlen(args[1]);
+      int def_len = strlen(args[2]);
+
+      aliases_lt[alias_num] = malloc(alias_len + 5);
+      definitions_lt[alias_num] = malloc(def_len + 5);
+
+      sprintf(aliases_lt[alias_num], "%s", args[1]);
+      sprintf(definitions_lt[alias_num], "%s", args[2]);
+      alias_num++;
+    }
+  }
+  return 1;
+}
 
 int ysh_hello(char **args){
   printf("hello there, i'm ysh!\ni suck right now, but i'm soon to be your favorite shell!\n(hopefully)\n");
@@ -98,4 +144,5 @@ int (*builtin_func[]) (char **) = {
   &ysh_eboys,
   &ysh_which,
   &ysh_hello,
+  &ysh_alias
 };
