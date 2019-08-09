@@ -57,6 +57,10 @@ int ysh_alias(char **args){
       printf("%s >> %s\n", aliases_lt[i], definitions_lt[i]);
     }
   }else {
+    if(args[2] == NULL){
+      printf("not enough arguments to create alias\n");
+      return 1;
+    }
     if(alias_num == alias_max - 1){
       alias_max = alias_max + 5;
 
