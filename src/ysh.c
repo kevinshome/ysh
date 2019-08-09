@@ -254,6 +254,14 @@ int ysh_init(char *filename){
   char line[100];
   FILE *file = fopen(filename, "r");
 
+  if(file == NULL) {
+    
+   printf("Error opening ~/.yshrc\nCreating blank file as ~/.yshrc");
+   mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+   creat(filename, mode);
+
+  }
+
   while (fgets(line, 100, file) != NULL) {
 
     char *init_line = malloc(128);
