@@ -255,10 +255,11 @@ int ysh_init(char *filename){
   FILE *file = fopen(filename, "r");
 
   if(file == NULL) {
-    
-   printf("Error opening ~/.yshrc\nCreating blank file as ~/.yshrc");
+
+   printf("Error opening ~/.yshrc\nCreating blank file at ~/.yshrc\n");
    mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
    creat(filename, mode);
+   return 1;
 
   }
 
