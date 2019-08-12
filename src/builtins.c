@@ -46,7 +46,7 @@ char **definitions_lt;
 
 int ysh_alias(char **args){
 
-  if(do_not_alloc == 0){
+  if(do_not_alloc == 0){ //initial array size allocation
     aliases_lt = malloc(sizeof(*aliases_lt) * alias_max);
     definitions_lt = malloc(sizeof(*definitions_lt) * alias_max);
     do_not_alloc++;
@@ -63,8 +63,6 @@ int ysh_alias(char **args){
         if(strcmp(args[1], aliases_lt[i]) == 0){
           printf("%s >> %s\n", aliases_lt[i], definitions_lt[i]);
           notinarr = 0;
-        }else{
-          continue;
         }
       }
       if(notinarr == 0){
@@ -83,8 +81,7 @@ int ysh_alias(char **args){
       {
           aliases_lt = temp_array;
       }
-    }else{
-
+    }
       int alias_len = strlen(args[1]);
       int def_len = strlen(args[2]);
 
@@ -94,7 +91,6 @@ int ysh_alias(char **args){
       sprintf(aliases_lt[alias_num], "%s", args[1]);
       sprintf(definitions_lt[alias_num], "%s", args[2]);
       alias_num++;
-    }
   }
   return 1;
 }

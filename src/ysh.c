@@ -135,6 +135,7 @@ int ysh_aliaschk(char **args){
     if (strcmp(args[0], aliases_lt[i]) == 0) {
       args[0] = definitions_lt[i];
       yshexec(args);
+      return 2;
     }
   }
   return 1;
@@ -202,7 +203,10 @@ void ysh(void){
       line = readline("> ");
       ysh_hist_mgmt(line);
       args = split_line(line);
-      status = yshexec(args);
+
+      if(ysh_aliaschk(args) == 2){
+        status = 1;
+      }else{status = yshexec(args);}
 
       free(line);
       free(args);
