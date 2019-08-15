@@ -70,6 +70,9 @@ int filestuffs(const char *filename){
           int numhere2 = 0;
           anotherstr = malloc(128);
           for(int numhere = 16; (line[numhere] != '\n'); numhere++){
+            if(line[numhere] == '\n'){
+              break;
+            }
             anotherstr[numhere2] = line[numhere];
             numhere2++;
           }
