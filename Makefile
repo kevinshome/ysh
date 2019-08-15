@@ -23,10 +23,10 @@ files := ysh.c builtins.c remchar.c
 
 .SILENT build:
 	for file in $(files); do \
-		echo " 	$(CL)CC $$file$(NC)" ; \
+		echo -e " 	$(CL)CC $$file$(NC)" ; \
 		$(CC) $(folder)$$file ; \
 	done
-	echo " 	$(CL)LD *.o$(NC)"
+	echo -e " 	$(CL)LD *.o$(NC)"
 	$(LD) $(INCLUDES) *.o -o ysh
 	echo "Cleaning up..."
 	rm *.o
@@ -34,10 +34,10 @@ files := ysh.c builtins.c remchar.c
 
 debug:
 	for file in $(files); do \
-		echo " 	$(CL)CCDEBUG $$file$(NC)" ; \
+		echo -e " 	$(CL)CCDEBUG $$file$(NC)" ; \
 		$(CCDEBUG) $(folder)$$file ; \
 	done
-	echo " 	$(CL)LD *.o$(NC)"
+	echo -e " 	$(CL)LD *.o$(NC)"
 	$(LD) $(INCLUDES) *.o -o ysh
 	echo "Cleaning up..."
 	rm *.o

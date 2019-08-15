@@ -41,6 +41,39 @@ int release = 2;
 */
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
+char *lineforit;
+
+int exists(const char *fname)
+{
+    FILE *file;
+    if ((file = fopen(fname, "r")))
+    {
+        fclose(file);
+        return 1;
+    }
+    return 0;
+}
+int filestuffs(const char *filename){
+    FILE * fp;
+    char * line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+        exit(EXIT_FAILURE);
+
+    int num = 0;
+    while ((read = getline(&line, &len, fp)) != -1) {
+        printf("Retrieved line of length %zu:\n", read);
+        
+      }
+
+    fclose(fp);
+    if (line)
+        free(line);
+    return 1;
+}
 
 char *read_line(void){
   char *line = NULL;
@@ -198,7 +231,16 @@ void ysh(void){
         cwd = repstr(cwd, "/home/noah", "~");
       }
 
-      printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
+
+      char *fname = malloc(128);
+      strcpy(fname, getcwd(buf, (size_t)size));
+      strcat(fname, "/.git/config");
+      if(exists(fname) == 1){
+        filestuffs("branch");
+        printf("\33[36m %s@%s (%s - git %s) \33[37m \n", user, hostname, cwd, lineforit);
+      }else {
+        printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
+      }
 
       line = readline("> ");
       ysh_hist_mgmt(line);
