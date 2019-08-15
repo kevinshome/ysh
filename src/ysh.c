@@ -42,6 +42,7 @@ int release = 2;
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
 char *lineforit;
+char *anotherstr;
 
 int exists(const char *fname)
 {
@@ -65,8 +66,14 @@ int filestuffs(const char *filename){
 
     int num = 0;
     while ((read = getline(&line, &len, fp)) != -1) {
-        printf("Retrieved line of length %zu:\n", read);
-        
+        if(strstr(line, "ref: ref/heads/") == 0){
+          int numhere2 = 0;
+          anotherstr = malloc(128);
+          for(int numhere = 16; numhere<strlen(line); numhere++){
+            anotherstr[numhere2] = line[numhere];
+            numhere2++;
+          }
+        }
       }
 
     fclose(fp);
@@ -234,10 +241,11 @@ void ysh(void){
 
       char *fname = malloc(128);
       strcpy(fname, getcwd(buf, (size_t)size));
-      strcat(fname, "/.git/config");
+      strcat(fname, "/.git/HEAD");
       if(exists(fname) == 1){
-        filestuffs("branch");
-        printf("\33[36m %s@%s (%s - git %s) \33[37m \n", user, hostname, cwd, lineforit);
+        filestuffs(fname);
+        printf("\33[36m %s@%s (%s)\n\
+\33[31m git branch - %s\33[37m", user, hostname, cwd, anotherstr);
       }else {
         printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
       }
