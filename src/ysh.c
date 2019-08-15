@@ -69,7 +69,7 @@ int filestuffs(const char *filename){
         if(strstr(line, "ref: ref/heads/") == 0){
           int numhere2 = 0;
           anotherstr = malloc(128);
-          for(int numhere = 16; numhere<strlen(line); numhere++){
+          for(int numhere = 16; (line[numhere] != '\n'); numhere++){
             anotherstr[numhere2] = line[numhere];
             numhere2++;
           }
@@ -245,7 +245,7 @@ void ysh(void){
       if(exists(fname) == 1){
         filestuffs(fname);
         printf("\33[36m %s@%s (%s)\n\
-\33[31m git branch - %s\33[37m", user, hostname, cwd, anotherstr);
+\33[31m git branch - %s\n\33[37m", user, hostname, cwd, anotherstr);
       }else {
         printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
       }
