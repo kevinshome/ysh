@@ -242,7 +242,7 @@ void ysh(void){
       }
 
 
-      char *fname = malloc(128);
+      char *fname = malloc(64);
       strcpy(fname, getcwd(buf, (size_t)size));
       strcat(fname, "/.git/HEAD");
       if(exists(fname) == 1){
