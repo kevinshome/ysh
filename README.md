@@ -10,8 +10,10 @@ the likes of bash, zsh, fish, etc. but, i guess only time will tell, because did
 itself just start out as linus torvalds' side project?
 
 go ahead and clone ysh today (fork it too if you want, why not, right?):
-> git clone https://github.com/kevinshome/ysh.git
 
+```
+git clone https://github.com/kevinshome/ysh.git
+```
 ## installation
 
 requirements to build from source:
