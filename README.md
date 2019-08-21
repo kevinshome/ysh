@@ -12,7 +12,7 @@ itself just start out as linus torvalds' side project?
 go ahead and clone ysh today (fork it too if you want, why not, right?):
 
 ```
-git clone https://github.com/kevinshome/ysh.git
+$ git clone https://github.com/kevinshome/ysh.git
 ```
 ## installation
 
@@ -25,16 +25,19 @@ only revolves around the single Makefile in the root directory:
 
 to install to /usr/bin:
 
-`cd ysh`
+```
+cd ysh
 
-`make`
+make
 
-`make install`
+make install
+```
 
 and then all you have to do is type:
 
-`ysh`
-
+```
+ysh
+```
 and you'll be in!
 
 ## license
