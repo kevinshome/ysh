@@ -33,6 +33,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include <ysh/defines.h>
 #include <ysh/builtins.h>
 
+int thisint = 0;
 int release = 2;
 /*
 0 > regular binary build
@@ -41,8 +42,9 @@ int release = 2;
 */
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
+
 char *lineforit;
-char *anotherstr;
+char *git_branch_str;
 
 int exists(const char *fname)
 {
@@ -68,12 +70,12 @@ int filestuffs(const char *filename){
     while ((read = getline(&line, &len, fp)) != -1) {
         if(strstr(line, "ref: ref/heads/") == 0){
           int numhere2 = 0;
-          anotherstr = malloc(128);
+          git_branch_str = malloc(128);
           for(int numhere = 16; (line[numhere] != '\n'); numhere++){
             if(line[numhere] == '\n'){
               break;
             }
-            anotherstr[numhere2] = line[numhere];
+            git_branch_str[numhere2] = line[numhere];
             numhere2++;
           }
         }
@@ -247,8 +249,19 @@ void ysh(void){
       strcat(fname, "/.git/HEAD");
       if(exists(fname) == 1){
         filestuffs(fname);
-        printf("\33[36m %s@%s (%s)\n\
-\33[31m git branch - %s\n\33[37m", user, hostname, cwd, anotherstr);
+        if(strlen(git_branch_str) < 24){
+          printf("\33[36m %s@%s (%s)\n\
+\33[31m git branch - %s\n\33[37m", user, hostname, cwd, git_branch_str);
+        }else{
+          if(thisint == 0){
+            printf("\33[36m %s@%s (%s)\n\
+\33[31m git branch - %s...\n\33[37m", user, hostname, cwd, git_branch_str);
+            thisint++;
+          }else{
+          printf("\33[36m %s@%s (%s)\n\
+\33[31m git branch - %s\33[37m", user, hostname, cwd, git_branch_str);
+          }
+        }
       }else {
         printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
       }
