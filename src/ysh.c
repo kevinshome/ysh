@@ -45,6 +45,7 @@ extern int alias_num;
 
 char *lineforit;
 char *git_branch_str;
+char s[100];
 
 int exists(const char *fname)
 {
@@ -266,7 +267,12 @@ void ysh(void){
         printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
       }
 
-      line = readline("> ");
+      if(strcmp(env, "0") != 0){
+        line = readline("❌ > ");
+      }else{
+        line = readline("> ");
+      }
+
       ysh_hist_mgmt(line);
       args = split_line(line);
 
