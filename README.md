@@ -26,17 +26,17 @@ only revolves around the single Makefile in the root directory:
 to install to /usr/bin:
 
 ```
-cd ysh
+$ cd ysh
 
-make
+$ make
 
-make install
+$ make install
 ```
 
 and then all you have to do is type:
 
 ```
-ysh
+$ ysh
 ```
 and you'll be in!
 
