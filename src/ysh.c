@@ -266,8 +266,9 @@ void ysh(void){
       }else {
         printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
       }
-
-      if(strcmp(env, "0") != 0){
+      char *env = malloc(64);
+      sprintf(env, "%s", getenv("USER"));
+      if(strcmp(env, "0") == 0){
         line = readline("❌ > ");
       }else{
         line = readline("> ");

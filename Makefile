@@ -10,9 +10,9 @@
 
 # Makefile for the yikes shell (ysh)
 
-CC = gcc -I include -c
-LD = gcc
-CCDEBUG = gcc -g -Wall -I include -c
+CC = clang -I include -c
+LD = clang
+CCDEBUG = clang -g -Wall -I include -c
 INCLUDES = -lreadline
 
 CL := \033[1;34m
@@ -24,7 +24,7 @@ files := ysh.c builtins.c remchar.c
 .SILENT build:
 	for file in $(files); do \
 		echo -e " 	$(CL)CC $$file$(NC)" ; \
-		$(CC) $(folder)$$file ; \
+		$(CC) $(INCLUDES) $(folder)$$file ; \
 	done
 	echo -e " 	$(CL)LD *.o$(NC)"
 	$(LD) $(INCLUDES) *.o -o ysh
@@ -35,7 +35,7 @@ files := ysh.c builtins.c remchar.c
 debug:
 	for file in $(files); do \
 		echo -e " 	$(CL)CCDEBUG $$file$(NC)" ; \
-		$(CCDEBUG) $(folder)$$file ; \
+		$(CCDEBUG) $(INCLUDES) $(folder)$$file ; \
 	done
 	echo -e " 	$(CL)LD *.o$(NC)"
 	$(LD) $(INCLUDES) *.o -o ysh

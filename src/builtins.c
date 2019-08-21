@@ -121,7 +121,7 @@ int ysh_echo(char **args){
     char *envar = args[1];
     memmove(&envar[0], &envar[1], strlen(envar)); //remove $ char in front of requested envar
     envar = getenv(envar);
-    printf(envar);
+    printf("%s", envar);
     printf("\n");
   } else { //if user is not trying to echo an env value, call /bin/echo
     ysh_start(args);
