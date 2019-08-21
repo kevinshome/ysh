@@ -67,7 +67,6 @@ int filestuffs(const char *filename){
     if (fp == NULL)
         exit(EXIT_FAILURE);
 
-    int num = 0;
     while ((read = getline(&line, &len, fp)) != -1) {
         if(strstr(line, "ref: ref/heads/") == 0){
           int numhere2 = 0;
