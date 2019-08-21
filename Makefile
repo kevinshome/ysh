@@ -10,9 +10,9 @@
 
 # Makefile for the yikes shell (ysh)
 
-CC = gcc -I include -c
-LD = gcc
-CCDEBUG = gcc -g -Wall -I include -c
+CC = clang -I include -c
+LD = clang
+CCDEBUG = clang -g -Wall -I include -c
 INCLUDES = -lreadline
 
 CL := \033[1;34m
@@ -26,7 +26,7 @@ files := ysh.c builtins.c remchar.c
 		echo " 	$(CL)CC $$file$(NC)" ; \
 		$(CC) $(folder)$$file ; \
 	done
-	echo " 	$(CL)LD *.o$(NC)"
+	echo  " 	$(CL)LD *.o$(NC)"
 	$(LD) $(INCLUDES) *.o -o ysh
 	echo "Cleaning up..."
 	rm *.o
@@ -34,10 +34,10 @@ files := ysh.c builtins.c remchar.c
 
 debug:
 	for file in $(files); do \
-		echo " 	$(CL)CCDEBUG $$file$(NC)" ; \
+		echo  " 	$(CL)CCDEBUG $$file$(NC)" ; \
 		$(CCDEBUG) $(folder)$$file ; \
 	done
-	echo " 	$(CL)LD *.o$(NC)"
+	echo  " 	$(CL)LD *.o$(NC)"
 	$(LD) $(INCLUDES) *.o -o ysh
 	echo "Cleaning up..."
 	rm *.o

@@ -33,6 +33,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include <ysh/defines.h>
 #include <ysh/builtins.h>
 
+int thisint = 0;
 int release = 2;
 /*
 0 > regular binary build
@@ -42,6 +43,50 @@ int release = 2;
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
 int ysh_aliaschk(char **args);
+
+char *lineforit;
+char *git_branch_str;
+char s[100];
+
+int exists(const char *fname)
+{
+    FILE *file;
+    if ((file = fopen(fname, "r")))
+    {
+        fclose(file);
+        return 1;
+    }
+    return 0;
+}
+int filestuffs(const char *filename){
+    FILE * fp;
+    char * line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+        exit(EXIT_FAILURE);
+
+    while ((read = getline(&line, &len, fp)) != -1) {
+        if(strstr(line, "ref: ref/heads/") == 0){
+          int numhere2 = 0;
+          git_branch_str = malloc(128);
+          for(int numhere = 16; (line[numhere] != '\n'); numhere++){
+            if(line[numhere] == '\n'){
+              break;
+            }
+            git_branch_str[numhere2] = line[numhere];
+            numhere2++;
+          }
+        }
+      }
+
+    fclose(fp);
+    if (line)
+        free(line);
+    return 1;
+}
 
 char *read_line(void){
   char *line = NULL;
@@ -192,12 +237,69 @@ void ysh(void){
 
       if ((buf = (char *)malloc((size_t)size)) != NULL){
         cwd = getcwd(buf, (size_t)size);
-        cwd = repstr(cwd, "/home/noah", "~");
+        char *homedir = malloc(64);
+        sprintf(homedir, "/home/%s", user);
+        cwd = repstr(cwd, homedir, "~");
       }
 
-      printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
+      char **fname = malloc(128);
 
-      line = readline("> ");
+      /*
+        feel free to put this on r/badcode
+        it truly deserves it
+
+        do i *need* to allocate 64 bytes of memory each time i initialize an entry? hell no.
+        do i care? hell no.
+      */
+
+      fname[1] = malloc(64);
+      sprintf(fname[1], "%s", ".git/HEAD");
+      fname[2] = malloc(64);
+      sprintf(fname[2], "%s", "../.git/HEAD");
+      fname[3] = malloc(64);
+      sprintf(fname[3], "%s", "../../.git/HEAD");
+      fname[4] = malloc(64);
+      sprintf(fname[4], "%s", "../../../.git/HEAD");
+      fname[5] = malloc(64);
+      sprintf(fname[5], "%s", "../../../../.git/HEAD");
+
+      int break_int = 0;
+
+      for(int i = 0; i <=5; i++){
+      if(exists(fname[i]) == 1){
+        filestuffs(fname[i]);
+        if(strlen(git_branch_str) < 24){
+          printf("\33[36m %s@%s (%s)\n\
+\33[31m git branch - %s\n\33[37m", user, hostname, cwd, git_branch_str);
+          break_int = 1;
+          break;
+        }else if(strlen(git_branch_str) > 24){
+          if(thisint == 0){
+            printf("\33[36m %s@%s (%s)\n\
+\33[31m git branch - %s...\n\33[37m", user, hostname, cwd, git_branch_str);
+            thisint++;
+            break_int = 2;
+            break;
+          }else{
+          printf("\33[36m %s@%s (%s)\n\
+\33[31m git branch - %s\33[37m", user, hostname, cwd, git_branch_str);
+          break_int = 3;
+          break;
+          }
+        }
+      }
+      }
+      if(break_int == 0) {
+        printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
+      }
+      char *env = malloc(64);
+      sprintf(env, "%s", getenv("USER"));
+      if(strcmp(env, "0") == 0){
+        line = readline("❌ > ");
+      }else{
+        line = readline("> ");
+      }
+
       ysh_hist_mgmt(line);
       args = split_line(line);
 
@@ -261,11 +363,11 @@ void helpmenu(void){
 ysh, (C) 2019 kevinshome\n", stdout);
     if(release == 0){
     fputs("\n\
-built using gcc 8.3.0 on debian stretch\n\
+built using clang 8.0.0 on pop_os! 19.04\n\
 this binary was built with lots of love on xx.xx.2019\n", stdout);
 } else if(release == 1){
       fputs("\n\
-built using gcc 8.3.0 on debian stretch (nightly build)\n\
+built using clang 8.0.0 on pop_os! 19.04 (ysh nightly build)\n\
 this binary was built with lots of love on xx.xx.2019\n", stdout);
     } else{
       fputs("\n\
@@ -291,7 +393,8 @@ int arghandle(int argc, char **argv){
         break;
 
         case 'v':
-        printf("ysh 0.1\njet fuel can't melt steel beams\n");
+        printf("ysh 0.2\neternal sunshine of the spotless mind\n\
+each prayer accepted, each wish resigned\n");
         break;
 
       }

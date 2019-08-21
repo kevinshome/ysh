@@ -14,3 +14,4 @@ a copy of the MIT License can also be found at https://opensource.org/licenses/M
 
 #define TOKEN_BUFFER 64
 #define TOKEN_DELIM " \t\r\n\a"
+#define _GNU_SOURCE

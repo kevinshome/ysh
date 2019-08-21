@@ -48,7 +48,7 @@ char *tptr1, *tptr2;
 
 int ysh_alias(char **args){
 
-  if(do_not_alloc == 0){
+  if(do_not_alloc == 0){ //initial array size allocation
     aliases_lt = malloc(sizeof(*aliases_lt) * alias_max);
     definitions_lt = malloc(sizeof(*definitions_lt) * alias_max);
     do_not_alloc++;
@@ -104,7 +104,6 @@ int ysh_alias(char **args){
         free(tptr2);
       }
       alias_num++;
-    }
   }
   return 1;
 }
@@ -135,7 +134,7 @@ int ysh_echo(char **args){
     char *envar = args[1];
     memmove(&envar[0], &envar[1], strlen(envar)); //remove $ char in front of requested envar
     envar = getenv(envar);
-    printf(envar);
+    printf("%s", envar);
     printf("\n");
   } else { //if user is not trying to echo an env value, call /bin/echo
     ysh_start(args);
