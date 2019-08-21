@@ -241,29 +241,59 @@ void ysh(void){
 
       if ((buf = (char *)malloc((size_t)size)) != NULL){
         cwd = getcwd(buf, (size_t)size);
-        cwd = repstr(cwd, "/home/noah", "~");
+        char *homedir = malloc(64);
+        sprintf(homedir, "/home/%s", user);
+        cwd = repstr(cwd, homedir, "~");
       }
 
+      char **fname = malloc(128);
 
-      char *fname = malloc(64);
-      strcpy(fname, getcwd(buf, (size_t)size));
-      strcat(fname, "/.git/HEAD");
-      if(exists(fname) == 1){
-        filestuffs(fname);
+      /*
+        feel free to put this on r/badcode
+        it truly deserves it
+
+        do i *need* to allocate 64 bytes of memory each time i initialize an entry? hell no.
+        do i care? hell no.
+      */
+
+      fname[1] = malloc(64);
+      sprintf(fname[1], "%s", ".git/HEAD");
+      fname[2] = malloc(64);
+      sprintf(fname[2], "%s", "../.git/HEAD");
+      fname[3] = malloc(64);
+      sprintf(fname[3], "%s", "../../.git/HEAD");
+      fname[4] = malloc(64);
+      sprintf(fname[4], "%s", "../../../.git/HEAD");
+      fname[5] = malloc(64);
+      sprintf(fname[5], "%s", "../../../../.git/HEAD");
+
+      int break_int = 0;
+
+      for(int i = 0; i <=5; i++){
+      if(exists(fname[i]) == 1){
+        filestuffs(fname[i]);
         if(strlen(git_branch_str) < 24){
           printf("\33[36m %s@%s (%s)\n\
 \33[31m git branch - %s\n\33[37m", user, hostname, cwd, git_branch_str);
-        }else{
+          break_int = 1;
+          break;
+        }else if(strlen(git_branch_str) > 24){
           if(thisint == 0){
             printf("\33[36m %s@%s (%s)\n\
 \33[31m git branch - %s...\n\33[37m", user, hostname, cwd, git_branch_str);
             thisint++;
+            break_int = 2;
+            break;
           }else{
           printf("\33[36m %s@%s (%s)\n\
 \33[31m git branch - %s\33[37m", user, hostname, cwd, git_branch_str);
+          break_int = 3;
+          break;
           }
         }
-      }else {
+      }
+      }
+      if(break_int == 0) {
         printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
       }
       char *env = malloc(64);
