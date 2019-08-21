@@ -323,11 +323,11 @@ void helpmenu(void){
 ysh, (C) 2019 kevinshome\n", stdout);
     if(release == 0){
     fputs("\n\
-built using gcc 8.3.0 on debian stretch\n\
+built using clang 8.0.0 on pop_os! 19.04\n\
 this binary was built with lots of love on xx.xx.2019\n", stdout);
 } else if(release == 1){
       fputs("\n\
-built using gcc 8.3.0 on debian stretch (nightly build)\n\
+built using clang 8.0.0 on pop_os! 19.04 (ysh nightly build)\n\
 this binary was built with lots of love on xx.xx.2019\n", stdout);
     } else{
       fputs("\n\
@@ -353,7 +353,8 @@ int arghandle(int argc, char **argv){
         break;
 
         case 'v':
-        printf("ysh 0.1\njet fuel can't melt steel beams\n");
+        printf("ysh 0.2\neternal sunshine of the spotless mind\n\
+each prayer accepted, each wish resigned\n");
         break;
 
       }
