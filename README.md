@@ -4,6 +4,8 @@
   <img src="yshinaction.gif">
 </p>
 
+[![license][license-badge]][LICENSE]
+
 the yikes shell (also known as ysh) is a basic shell for linux-based systems.
 as of right now, it's basically just a hobby of mine and has no real competition with
 the likes of bash, zsh, fish, etc., but, i guess only time will tell, because didn't linux
@@ -19,7 +21,7 @@ $ git clone https://github.com/kevinshome/ysh.git
 requirements to build from source:
 
   - libreadline-dev
-  - clang
+  - clang (for make)/gcc (for make gcc)
   - make
 
 
@@ -31,7 +33,7 @@ to install to /usr/bin:
 ```
 $ cd ysh
 
-$ make
+$ make (or "$ make gcc" to use gcc as compiler)
 
 $ make install
 ```
