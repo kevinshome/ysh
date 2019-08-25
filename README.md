@@ -2,9 +2,19 @@
 
 <p align="center">
   <img src="yshinaction.gif">
-</p>
 
-[![license][license-badge]][LICENSE] [![CircleCI](https://circleci.com/gh/kevinshome/ysh.svg?style=svg)](https://circleci.com/gh/kevinshome/ysh)
+<br>
+
+<a href = "https://circleci.com/gh/kevinshome/workflows/ysh" alt="circleci">
+  <img src="https://img.shields.io/circleci/build/github/kevinshome/ysh?token=abc123def456?style=flat-square" alt="circleci-badge">
+<a href="https://github.com/kevinshome/ysh/blob/master/LICENSE" alt="license">
+  <img src="https://img.shields.io/github/license/kevinshome/ysh?style=flat-square" alt="license-badge">
+<a href="https://github.com/kevinshome/ysh/releases" alt="version">
+  <img src="https://img.shields.io/github/v/release/kevinshome/ysh?include_prereleases?style=flat-square" alt="version-badge">
+  <img src="https://img.shields.io/maintenance/yes/2019?style=flat-square">
+  <img src="https://img.shields.io/github/commits-since/kevinshome/ysh/latest?style=flat-square">
+
+</p>
 
 the yikes shell (also known as ysh) is a basic shell for linux-based systems.
 as of right now, it's basically just a hobby of mine and has no real competition with
