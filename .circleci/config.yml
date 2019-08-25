@@ -37,7 +37,7 @@ jobs:
       - run: ls -la output
       - run: mv output/* .
       # link the compiled files into an executable
-      - run: gcc -o program *.o
+      - run: gcc -lreadline -o program *.o
       # confirm program exists and is executable
       - run: ls -la
       - run: ./program
