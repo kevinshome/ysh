@@ -4,7 +4,7 @@
   <img src="yshinaction.gif">
 </p>
 
-[![license][license-badge]][LICENSE]
+[![license][license-badge]][LICENSE] [![CircleCI](https://circleci.com/gh/kevinshome/ysh.svg?style=svg)](https://circleci.com/gh/kevinshome/ysh)
 
 the yikes shell (also known as ysh) is a basic shell for linux-based systems.
 as of right now, it's basically just a hobby of mine and has no real competition with
