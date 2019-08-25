@@ -38,9 +38,6 @@ jobs:
       - run: mv output/* .
       # link the compiled files into an executable
       - run: gcc -lreadline -o program *.o
-      # confirm program exists and is executable
-      - run: ls -la
-      - run: ./program
       # persist as artifact
       - store_artifacts:
           path: program
