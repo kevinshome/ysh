@@ -25,7 +25,8 @@ char *builtin_str[] = {
   "eboys?",
   "which",
   "hello",
-  "alias"
+  "alias",
+  "export"
 };
 
 int ysh_num_builtins() {
@@ -43,6 +44,11 @@ int notinarr = 1;
 
 char **aliases_lt;
 char **definitions_lt;
+
+int ysh_export(char **args){
+  /* ugh idk how to do this */
+  return 1;
+}
 
 int ysh_alias(char **args){
 
@@ -158,5 +164,6 @@ int (*builtin_func[]) (char **) = {
   &ysh_eboys,
   &ysh_which,
   &ysh_hello,
-  &ysh_alias
+  &ysh_alias,
+  &ysh_export
 };

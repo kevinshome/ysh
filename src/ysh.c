@@ -228,9 +228,9 @@ void ysh(void){
 
       char *user = getenv("USER");
 
-      char hostname[1024];
-      hostname[1023] = '\0';
-      gethostname(hostname, 1023);
+      char hostname[128];
+      hostname[127] = '\0';
+      gethostname(hostname, 127);
 
       long size;
       char *buf;
@@ -243,6 +243,7 @@ void ysh(void){
         char *homedir = malloc(64);
         sprintf(homedir, "/home/%s", user);
         cwd = repstr(cwd, homedir, "~");
+        free(homedir);
       }
 
       char **fname = malloc(128);
