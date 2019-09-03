@@ -1,7 +1,5 @@
-# ysh: the yikes shell
-
 <p align="center">
-  <img src="yshinaction.gif">
+  <img src="ysh_sign_transparent.png">
 
 <br>
 
