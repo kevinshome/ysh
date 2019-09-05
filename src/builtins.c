@@ -45,7 +45,7 @@ int notinarr = 1;
 char **aliases_lt;
 char **definitions_lt;
 
-int ysh_export(char **args){
+int ysh_export(){
   /* ugh idk how to do this */
   return 1;
 }
@@ -101,7 +101,7 @@ int ysh_alias(char **args){
   return 1;
 }
 
-int ysh_hello(char **args){
+int ysh_hello(){
   printf("hello there, i'm ysh!\ni suck right now, but i'm soon to be your favorite shell!\n(hopefully)\n");
   return 1;
 }
@@ -117,7 +117,7 @@ int ysh_which(char **args){
   return 1;
 }
 
-int ysh_eboys(char **args){
+int ysh_eboys(){
   printf("\neboys?\neboys are just self absorbed incels who\nare controlling, and use the way they dress to mask their\ndull and bland, trend following personality...\n\n");
   return 1;
 }
@@ -150,7 +150,7 @@ int ysh_cd(char **args)
   return 1;
 }
 
-int ysh_exit(char **args)
+int ysh_exit()
 {
   printf("exiting ysh, bye!\n");
   exit(0);

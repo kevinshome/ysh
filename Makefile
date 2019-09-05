@@ -12,10 +12,10 @@
 
 CC = clang -I include -c
 LD = clang
-CCDEBUG = clang -g -Wall -I include -c
+CCDEBUG = clang -g -Wall -Wextra -pedantic -I include -c
 INCLUDES = -lreadline
 GCC = gcc -I include -c
-GCCDEBUG = gcc -g -Wall -I include -c
+GCCDEBUG = gcc -g -Wall -Wextra -pedantic -I include -c
 
 CL := \033[1;34m
 NC := \033[0m
