@@ -319,7 +319,6 @@ void ysh(void){
 
               char **fullargs = malloc(128);
               char **newargs = malloc(128);
-              char *argstr = malloc(1000);
 
               newargs = split_line(definitions_lt[i]);
 

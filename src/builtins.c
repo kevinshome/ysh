@@ -104,6 +104,7 @@ int ysh_alias(char **args){
         free(tptr2);
       }
       alias_num++;
+    }
   }
   return 1;
 }
