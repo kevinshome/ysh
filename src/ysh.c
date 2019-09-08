@@ -33,7 +33,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include <ysh/defines.h>
 #include <ysh/builtins.h>
 
-int thisint = 0;
 int release = 2;
 /*
 0 > regular binary build
@@ -43,9 +42,7 @@ int release = 2;
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
 
-char *lineforit;
 char *git_branch_str;
-char s[100];
 
 int exists(const char *fname)
 {
@@ -57,6 +54,7 @@ int exists(const char *fname)
     }
     return 0;
 }
+
 int filestuffs(const char *filename){
     FILE * fp;
     char * line = NULL;
@@ -278,10 +276,8 @@ void ysh(void){
           break_int = 1;
           break;
         }else if(strlen(git_branch_str) > 24){
-          if(thisint == 0){
             printf("\33[36m %s@%s (%s)\n\
 \33[31m git branch - %s...\n\33[37m", user, hostname, cwd, git_branch_str);
-            thisint++;
             break_int = 2;
             break;
           }else{
@@ -290,7 +286,6 @@ void ysh(void){
           break_int = 3;
           break;
           }
-        }
       }
       }
       if(break_int == 0) {

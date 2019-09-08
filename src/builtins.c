@@ -17,6 +17,7 @@ a copy of the MIT License can also be found at https://opensource.org/licenses/M
 
 extern int remchar(char *s, char c);
 extern int ysh_start(char **args);
+extern int exists(const char *fname);
 
 char *builtin_str[] = {
   "cd",
