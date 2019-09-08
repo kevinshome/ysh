@@ -41,6 +41,7 @@ int release = 2;
 */
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
+int ysh_aliaschk(char **args);
 
 char *git_branch_str;
 
@@ -168,16 +169,12 @@ int yshexec(char **args)
       return (*builtin_func[i])(args);
     }
   }
-  return ysh_start(args);
+    return ysh_start(args);
 }
 
 int ysh_aliaschk(char **args){
-  int i;
-
-  for (i = 0; i < alias_num; i++) {
+  for (int i = 0; i < alias_num; i++) {
     if (strcmp(args[0], aliases_lt[i]) == 0) {
-      args[0] = definitions_lt[i];
-      yshexec(args);
       return 2;
     }
   }
@@ -303,8 +300,50 @@ void ysh(void){
       args = split_line(line);
 
       if(ysh_aliaschk(args) == 2){
-        status = 1;
-      }else{status = yshexec(args);}
+        for (int i = 0; i < alias_num; i++) {
+          if (strcmp(args[0], aliases_lt[i]) == 0) {
+              int j = 0;
+              char **argargs = malloc(128);
+
+              for(int x = 1; x<sizeof(args);x++){
+                argargs[j] = malloc(10);
+                sprintf(argargs[j], "%s", args[x]);
+                j++;
+              }
+
+              j=0;
+
+              char **fullargs = malloc(128);
+              char **newargs = malloc(128);
+
+              newargs = split_line(definitions_lt[i]);
+
+              int x;
+
+              for(x = 0; x<8; x++){
+                fullargs[x] = malloc(10);
+                sprintf(fullargs[x], "%s", newargs[j]);
+                j++;
+              }
+
+              j=0;
+
+              for(x = 7; x<8; x++){
+                fullargs[x] = malloc(10);
+                sprintf(fullargs[x], "%s", argargs[j]);
+                j++;
+              }
+
+              printf("%s, %s, %s\n", fullargs[0], fullargs[1], fullargs[7]);
+
+              status = yshexec(fullargs);
+              free(fullargs);
+              free(newargs);
+          }
+        }
+      } else{
+        status = yshexec(args);
+      }
 
       free(line);
       free(args);

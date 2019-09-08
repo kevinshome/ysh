@@ -18,6 +18,8 @@ a copy of the MIT License can also be found at https://opensource.org/licenses/M
 extern int remchar(char *s, char c);
 extern int ysh_start(char **args);
 extern int exists(const char *fname);
+extern char **split_line(char *line);
+extern int yshexec(char **args);
 
 char *builtin_str[] = {
   "cd",
@@ -41,10 +43,10 @@ int ysh_num_builtins() {
 int alias_num = 0;
 int alias_max = 5;
 int do_not_alloc = 0;
-int notinarr = 1;
 
 char **aliases_lt;
 char **definitions_lt;
+char *tptr1, *tptr2;
 
 int ysh_export(){
   /* ugh idk how to do this */
@@ -66,19 +68,8 @@ int ysh_alias(char **args){
     }
   }else {
     if(args[2] == NULL){
-      for (int i = 0; i < alias_num; i++){
-        if(strcmp(args[1], aliases_lt[i]) == 0){
-          printf("%s >> %s\n", aliases_lt[i], definitions_lt[i]);
-          notinarr = 0;
-        }
-      }
-      if(notinarr == 0){
-        notinarr = 1;
-        return 1;
-      }else if(notinarr == 1){
-        printf("%s: not an alias\n", args[1]);
-        return 1;
-      }
+      printf("not enough arguments to create alias\n");
+      return 1;
     }
     if(alias_num == alias_max - 1){
       alias_max = alias_max + 5;
@@ -88,16 +79,39 @@ int ysh_alias(char **args){
       {
           aliases_lt = temp_array;
       }
-    }
-      int alias_len = strlen(args[1]);
-      int def_len = strlen(args[2]);
+    }else{
 
-      aliases_lt[alias_num] = malloc(alias_len + 5);
-      definitions_lt[alias_num] = malloc(def_len + 5);
+      if(args[3] == NULL){
+        int alias_len = strlen(args[1]);
+        int def_len = strlen(args[2]);
 
-      sprintf(aliases_lt[alias_num], "%s", args[1]);
-      sprintf(definitions_lt[alias_num], "%s", args[2]);
+        aliases_lt[alias_num] = malloc(alias_len + 5);
+        definitions_lt[alias_num] = malloc(def_len + 5);
+
+        sprintf(aliases_lt[alias_num], "%s", args[1]);
+        sprintf(definitions_lt[alias_num], "%s", args[2]);
+      }else{
+        tptr1 = malloc(128);
+        tptr2 = malloc(128);
+
+        for(int i = 2; i < 4; i++){
+          strcat(tptr2, args[i]);
+          strcat(tptr2, " ");
+        }
+
+        int alias_len = strlen(args[1]);
+        int def_len = strlen(tptr2);
+
+        aliases_lt[alias_num] = malloc(alias_len + 5);
+        definitions_lt[alias_num] = malloc(def_len + 5);
+
+        sprintf(aliases_lt[alias_num], "%s", args[1]);
+        sprintf(definitions_lt[alias_num], "%s", tptr2);
+        free(tptr1);
+        free(tptr2);
+      }
       alias_num++;
+    }
   }
   return 1;
 }
