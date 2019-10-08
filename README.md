@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/github/license/kevinshome/ysh?style=flat-square" alt="license-badge"></a>
 <a href="https://github.com/kevinshome/ysh/releases" alt="version">
   <img src="https://img.shields.io/github/v/release/kevinshome/ysh?include_prereleases?style=flat-square" alt="version-badge"></a>
-  <img src="https://img.shields.io/maintenance/yes/2019?style=flat-square">
+  <img src="https://img.shields.io/maintenance/no/2019?style=flat-square">
   <img src="https://img.shields.io/github/commits-since/kevinshome/ysh/latest?style=flat-square">
 
 </p>
