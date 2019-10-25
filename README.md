@@ -14,6 +14,9 @@
 
 </p>
 
+** NOTE ** 
+As of September 2019, this repository is no longer being actively maintained and updated, as I have decided to move on to other projects, I may return to actively update ysh in the future, but as of right now, I don't see it happening for a while.
+
 the yikes shell (also known as ysh) is a basic shell for linux-based systems.
 as of right now, it's basically just a hobby of mine and has no real competition with
 the likes of bash, zsh, fish, etc., but, i guess only time will tell, because didn't linux
