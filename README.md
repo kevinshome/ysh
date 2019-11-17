@@ -9,10 +9,13 @@
   <img src="https://img.shields.io/github/license/kevinshome/ysh?style=flat-square" alt="license-badge"></a>
 <a href="https://github.com/kevinshome/ysh/releases" alt="version">
   <img src="https://img.shields.io/github/v/release/kevinshome/ysh?include_prereleases?style=flat-square" alt="version-badge"></a>
-  <img src="https://img.shields.io/maintenance/yes/2019?style=flat-square">
+  <img src="https://img.shields.io/maintenance/no/2019?style=flat-square">
   <img src="https://img.shields.io/github/commits-since/kevinshome/ysh/latest?style=flat-square">
 
 </p>
+
+** NOTE ** 
+As of September 2019, this repository is no longer being actively maintained and updated, as I have decided to move on to other projects, I may return to actively update ysh in the future, but as of right now, I don't see it happening for a while.
 
 the yikes shell (also known as ysh) is a basic shell for linux-based systems.
 as of right now, it's basically just a hobby of mine and has no real competition with
