@@ -99,14 +99,19 @@ char **split_line(char *line)
   char *token;
 
   if (!tokens) {
-    fprintf(stderr, "ysh: allocation error\n");
+    fprintf(stderr, "ysh: allocation error :(\n");
     exit(1);
   }
 
   token = strtok(line, TOKEN_DELIM);
+  printf("%s", token);
   while (token != NULL) {
     tokens[position] = token;
     position++;
+
+    /*if(strcmp(tokens[position], '"') == 0){
+      printf("str delim found\n");
+    }*/
 
     if (position >= bufsize) {
       bufsize += TOKEN_BUFFER;
