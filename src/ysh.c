@@ -296,7 +296,11 @@ void ysh(void){
       if(strcmp(env, "0") == 0){
         line = readline("❌ > ");
       }else{
+        #ifdef __APPLE__
+        line = readline("\n> ");
+        #else
         line = readline("> ");
+        #endif
       }
 
       ysh_hist_mgmt(line);
