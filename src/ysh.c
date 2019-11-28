@@ -296,11 +296,7 @@ void ysh(void){
       if(strcmp(env, "0") == 0){
         line = readline("❌ > ");
       }else{
-        #ifdef __APPLE__
-        line = readline("\n> ");
-        #else
         line = readline("> ");
-        #endif
       }
 
       ysh_hist_mgmt(line);
@@ -399,7 +395,11 @@ int main(int argc, char **argv){
   //ysh init
   char *user = getenv("USER");
   char *filename = malloc(128);
+  #ifndef __APPLE__
   sprintf(filename, "%s%s%s", "/home/", user, "/.yshrc");
+  #else
+  sprintf(filename, "%s%s%s", "/Users/", user, "/.yshrc");
+  #endif
   ysh_init(filename);
   free(filename);
   //end ysh init
