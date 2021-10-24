@@ -104,7 +104,7 @@ char **split_line(char *line)
   }
 
   token = strtok(line, TOKEN_DELIM);
-  printf("%s", token);
+  //printf("%s", token);
   while (token != NULL) {
     tokens[position] = token;
     position++;
@@ -130,7 +130,7 @@ char **split_line(char *line)
 
 int ysh_start(char **args)
 {
-  pid_t pid, wpid;
+  pid_t pid;
   int status;
 
   pid = fork();
@@ -143,16 +143,7 @@ int ysh_start(char **args)
     perror("ysh");
   } else {
     do {
-      wpid = waitpid(pid, &status, WUNTRACED);
-      if(wpid == 0){
-        /*
-        this only exists to get the gcc debugger off of my back,
-        obviously, it will never be used, since wpid was assigned right before,
-        but since i'm now using it in an if statement here, gcc thinks it's now being used,
-        so it won't print out the "var not used" error, fuck you gcc
-        */
-        printf("fuck you gcc, you piece of shit\n");
-      }
+      waitpid(pid, &status, WUNTRACED);
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
   }
 

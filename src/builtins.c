@@ -46,8 +46,28 @@ int notinarr = 1;
 char **aliases_lt;
 char **definitions_lt;
 
-int ysh_export(){
-  /* ugh idk how to do this */
+int ysh_export(char **args){
+  /*
+  char *arg = args[1];
+  char *envar;
+  const char *_envar_value;
+
+  envar = strtok(arg, "=");
+  _envar_value = strtok(NULL, ",");
+
+  char envar_value[strlen(_envar_value)];
+
+  for(int i=0; i < strlen(_envar_value); i++){
+    if (_envar_value[i] != '"'){
+      strcpy(envar_value, &_envar_value[i]);
+    } else {
+      continue;
+    }
+  }
+
+  printf("%s\n", envar_value);
+  */
+  printf("Feature not currently implemented\n");
   return 1;
 }
 
@@ -141,7 +161,7 @@ int ysh_cd(char **args)
 
   char *homedir = getenv("HOME"); //grab current user's home dir
 
-  if (args[1] == NULL) {
+  if (args[1] == NULL || args[1][0] == '~') {
     chdir(homedir); //if user does not specify directory to go to, go to user's home directory
   } else {
     if (chdir(args[1]) != 0) {
