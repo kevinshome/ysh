@@ -14,16 +14,9 @@
 
 </p>
 
-the yikes shell (also known as ysh) is a basic shell for linux-based systems.
-as of right now, it's basically just a hobby of mine and has no real competition with
-the likes of bash, zsh, fish, etc., but, i guess only time will tell, because didn't linux
-itself just start out as linus torvalds' side project?
+the yikes shell (also known as ysh) is ~~ a basic shell for linux-based systems.~~ a flaming pile
+of garbage that truly only exists for me to claim "i know C", when in reality, i don't. truthfully, though, it's simply a hobby project to hopefully improve my knowledge of both C and shell systems.
 
-go ahead and clone ysh today (fork it too if you want, why not, right?):
-
-```
-$ git clone https://github.com/kevinshome/ysh.git
-```
 ## building
 
 requirements to build from source:
