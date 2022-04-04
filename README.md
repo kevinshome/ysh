@@ -6,11 +6,11 @@
 <a href = "https://github.com/kevinshome/ysh/actions/workflows/build.yml" alt="build-status">
   <img src="https://github.com/kevinshome/ysh/actions/workflows/build.yml/badge.svg?branch=master&event=push" alt="build-status"></a>
 <a href="https://github.com/kevinshome/ysh/blob/master/LICENSE" alt="license">
-  <img src="https://img.shields.io/github/license/kevinshome/ysh?style=flat-square" alt="license-badge"></a>
+  <img src="https://img.shields.io/github/license/kevinshome/ysh" alt="license-badge"></a>
 <a href="https://github.com/kevinshome/ysh/releases" alt="version">
-  <img src="https://img.shields.io/github/v/release/kevinshome/ysh?include_prereleases?style=flat-square" alt="version-badge"></a>
-  <img src="https://img.shields.io/maintenance/no/2019?style=flat-square">
-  <img src="https://img.shields.io/github/commits-since/kevinshome/ysh/latest?style=flat-square">
+  <img src="https://img.shields.io/github/v/release/kevinshome/ysh?include_prereleases" alt="version-badge"></a>
+  <img src="https://img.shields.io/maintenance/no/2019">
+  <img src="https://img.shields.io/github/commits-since/kevinshome/ysh/latest">
 
 </p>
 
