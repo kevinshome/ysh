@@ -13,14 +13,13 @@ a copy of the MIT License can also be found at https://opensource.org/licenses/M
 // this is the yikes shell (ysh) meta-include file
 // i have no shame in admitting i stole this idea from CPython
 
-#include <sys/wait.h>
-
-#include <readline/history.h>
-#include <readline/readline.h>
-
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <getopt.h>
 #include <fcntl.h>
+#include <sys/wait.h>
+
+#include <readline/history.h>
+#include <readline/readline.h>

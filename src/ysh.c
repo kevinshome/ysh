@@ -278,7 +278,7 @@ int arghandle(int argc, char **argv){
         break;
 
         case 'v':
-        printf("ysh 0.3\ncome alone with me, and the butterflies and bees\n");
+        printf("libreadline: 0x0%x\nysh 0.3\ncome alone with me, and the butterflies and bees\n", rl_readline_version);
         break;
 
       }

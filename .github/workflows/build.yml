@@ -1,4 +1,4 @@
-name: Build ysh
+name: Build ysh (meson)
 
 on:
   push:
@@ -12,10 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: sudo apt install -y clang gcc libreadline-dev
-    - name: make (clang)
-      run: make
-    - name: make (gcc)
-      run: make gcc
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+      - uses: BSFishy/meson-build@v1.0.3
+        with:
+          action: build
