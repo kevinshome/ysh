@@ -27,34 +27,37 @@ go ahead and clone ysh today (fork it too if you want, why not, right?):
 ```
 $ git clone https://github.com/kevinshome/ysh.git
 ```
-## installation
+## building
 
 requirements to build from source:
 
   - libreadline-dev
-  - clang (for make)/gcc (for make gcc)
-  - make
+  - C compiler (GCC recommended)
+  - [meson](https://mesonbuild.com)
 
-
-the installation process for ysh is pretty easy, as it
-only revolves around the single Makefile in the root directory:
-
-to install to /usr/bin:
-
+to build ysh from source, run the following commands in the root directory:
 ```
-$ cd ysh
-
-$ make (or "$ make gcc" to use gcc as compiler)
-
-$ make install
+meson build
+cd build && ninja
+```
+then you can start up the shell by simply running:
+```
+ysh
 ```
 
-and then all you have to do is type:
+## installing & uninstalling
 
+to install ysh to your system, run:
 ```
-$ ysh
+meson build
+cd build && ninja install
 ```
-and you'll be in!
+
+and to uninstall ysh, run:
+```
+meson build
+cd build && ninja uninstall
+```
 
 ## license
 
