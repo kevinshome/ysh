@@ -3,8 +3,8 @@
 
 <br>
 
-<a href = "https://circleci.com/gh/kevinshome/workflows/ysh" alt="circleci">
-  <img src="https://img.shields.io/circleci/build/github/kevinshome/ysh?token=abc123def456?style=flat-square" alt="circleci-badge"></a>
+<a href = "https://github.com/kevinshome/ysh/actions/workflows/build.yml" alt="build-status">
+  <img src="https://img.shields.io/github/workflow/status/kevinshome/ysh/build.yml" alt="build-status"></a>
 <a href="https://github.com/kevinshome/ysh/blob/master/LICENSE" alt="license">
   <img src="https://img.shields.io/github/license/kevinshome/ysh?style=flat-square" alt="license-badge"></a>
 <a href="https://github.com/kevinshome/ysh/releases" alt="version">
