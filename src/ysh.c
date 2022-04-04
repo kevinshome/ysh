@@ -246,9 +246,7 @@ void helpmenu(void){
 
     if (dev_build){
       sprintf(devrelease, "--- DEVELOPMENT BUILD ---\n");
-    } else {
-      sprintf(devrelease, "");
-    }
+    } else free(devrelease);
 
     char *buildmsg = malloc(128);
     sprintf(buildmsg, "\n\
