@@ -194,23 +194,8 @@ int ysh_hist_mgmt(char *line){
   return 1;
 }
 
-void signal_callback_handle(){
-  /*
-  okay so, a little explanation of why i've set this up like i have
-
-  1). the SIGINT callback handler has to be void, so i can't simply return a value, bc gcc gets mad at me
-  2). i can't just define hiimcarl (look, jimmy neutron was the shit) and not use it, bc gcc gets mad at me
-
-  either way, this setup returns no compile-time errors, and does what it needs to successfully
-  so don't critique it, and especially don't put it on r/badcode, please.
-  thx,
-  mgmt
-  */
-
-  int hiimcarl = 0;
-  if(hiimcarl != 0){
-    hiimcarl = 0;
-  }
+void _handle_sigint_sigstp(){
+  exit(0);
 }
 
 void ysh(void){
@@ -240,53 +225,7 @@ void ysh(void){
         free(homedir);
       }
 
-      char **fname = malloc(128);
-
-      /*
-        feel free to put this on r/badcode
-        it truly deserves it
-
-        do i *need* to allocate 64 bytes of memory each time i initialize an entry? hell no.
-        do i care? hell no.
-      */
-
-      fname[1] = malloc(64);
-      sprintf(fname[1], "%s", ".git/HEAD");
-      fname[2] = malloc(64);
-      sprintf(fname[2], "%s", "../.git/HEAD");
-      fname[3] = malloc(64);
-      sprintf(fname[3], "%s", "../../.git/HEAD");
-      fname[4] = malloc(64);
-      sprintf(fname[4], "%s", "../../../.git/HEAD");
-      fname[5] = malloc(64);
-      sprintf(fname[5], "%s", "../../../../.git/HEAD");
-
-      int break_int = 0;
-
-      for(int i = 0; i <=5; i++){
-      if(exists(fname[i]) == 1){
-        filestuffs(fname[i]);
-        if(strlen(git_branch_str) < 24){
-          printf("\33[36m %s@%s (%s)\n\
-\33[31m git branch - %s\n\33[37m", user, hostname, cwd, git_branch_str);
-          break_int = 1;
-          break;
-        }else if(strlen(git_branch_str) > 24){
-            printf("\33[36m %s@%s (%s)\n\
-\33[31m git branch - %s...\n\33[37m", user, hostname, cwd, git_branch_str);
-            break_int = 2;
-            break;
-          }else{
-          printf("\33[36m %s@%s (%s)\n\
-\33[31m git branch - %s\33[37m", user, hostname, cwd, git_branch_str);
-          break_int = 3;
-          break;
-          }
-      }
-      }
-      if(break_int == 0) {
-        printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
-      }
+      printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
       char *env = malloc(64);
       sprintf(env, "%s", getenv("USER"));
       if(strcmp(env, "0") == 0){
@@ -315,12 +254,12 @@ void helpmenu(void){
 ysh, (C) 2019 kevinshome\n", stdout);
     if(release == 0){
     fputs("\n\
-built using clang 8.0.0 on pop_os! 19.04\n\
-this binary was built with lots of love on xx.xx.2019\n", stdout);
+built using clang 12.0.0 on macOS 10.15 Catalina\n\
+this binary was built with lots of love on xx.xx.2022\n", stdout);
 } else if(release == 1){
       fputs("\n\
-built using clang 8.0.0 on pop_os! 19.04 (ysh nightly build)\n\
-this binary was built with lots of love on xx.xx.2019\n", stdout);
+built using clang 12.0.0 on macOS 10.15 Catalina\n\
+this binary was built with lots of love on xx.xx.2022\n", stdout);
     } else{
       fputs("\n\
 ysh development release\n", stdout);
@@ -345,8 +284,7 @@ int arghandle(int argc, char **argv){
         break;
 
         case 'v':
-        printf("ysh 0.2\neternal sunshine of the spotless mind\n\
-each prayer accepted, each wish resigned\n");
+        printf("ysh 0.3\npushing p\n");
         break;
 
       }
@@ -361,10 +299,10 @@ int ysh_init(char *filename){
 
   if(file == NULL) {
 
-   printf("Error opening ~/.yshrc\nCreating blank file at ~/.yshrc\n");
-   mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-   creat(filename, mode);
-   return 1;
+    printf("Error opening ~/.yshrc\nCreating blank file at ~/.yshrc\n");
+    mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+    creat(filename, mode);
+    return 1;
 
   }
 
@@ -400,9 +338,8 @@ int main(int argc, char **argv){
   free(filename);
   //end ysh init
 
-  signal(SIGINT, signal_callback_handle);
-  //signal(SIGTSTP, signal_callback_handle);
-  // i'll implement this later when i find a fix bc as of right now, pressing ctrl-z will crash the entire fucking console
+  signal(SIGINT, _handle_sigint_sigstp);
+  signal(SIGTSTP, _handle_sigint_sigstp);
 
   if(argc > 1){
     arghandle(argc, argv);
