@@ -1,4 +1,4 @@
-name: Build ysh (meson)
+name: Build
 
 on:
   push:
