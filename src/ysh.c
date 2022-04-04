@@ -33,12 +33,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 #include <ysh/defines.h>
 #include <ysh/builtins.h>
 
-int release = 2;
-/*
-0 > regular binary build
-1 > nightly build
-2 (or really anything else) > development (github master branch) release
-*/
+int dev_build = 1;
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
 
@@ -213,7 +208,7 @@ void ysh(void){
 
       long size;
       char *buf;
-      char *cwd;
+      char *cwd = NULL;
 
       size = pathconf(".", _PC_PATH_MAX);
 
@@ -226,13 +221,7 @@ void ysh(void){
       }
 
       printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
-      char *env = malloc(64);
-      sprintf(env, "%s", getenv("USER"));
-      if(strcmp(env, "0") == 0){
-        line = readline("❌ > ");
-      }else{
-        line = readline("> ");
-      }
+      line = readline("> ");
 
       ysh_hist_mgmt(line);
       args = split_line(line);
@@ -247,23 +236,30 @@ void ysh(void){
 }
 
 void helpmenu(void){
+    char *compiler = malloc(32);
+    char *devrelease = malloc(32);
+    #if defined(__GNUC__) && !defined(__clang__)
+      sprintf(compiler, "GCC %d.%d.%d", __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
+    #elif __clang__
+      sprintf(compiler, "Clang %d.%d.%d", __clang_major__, __clang_minor__, __clang_patchlevel__);
+    #endif
+
+    if (dev_build){
+      sprintf(devrelease, "--- DEVELOPMENT BUILD ---\n");
+    } else {
+      sprintf(devrelease, "");
+    }
+
+    char *buildmsg = malloc(128);
+    sprintf(buildmsg, "\n\
+built using %s with lots of love on %s\n%s", compiler, __DATE__, devrelease);
+
     printf("ysh: the yikes shell\n");
     fputs("usage: ysh [OPTION]\n\n\
 -v, --version    show program version and exit\n\
 -h, --help       show this menu and exit\n\n\
 ysh, (C) 2019 kevinshome\n", stdout);
-    if(release == 0){
-    fputs("\n\
-built using clang 12.0.0 on macOS 10.15 Catalina\n\
-this binary was built with lots of love on xx.xx.2022\n", stdout);
-} else if(release == 1){
-      fputs("\n\
-built using clang 12.0.0 on macOS 10.15 Catalina\n\
-this binary was built with lots of love on xx.xx.2022\n", stdout);
-    } else{
-      fputs("\n\
-ysh development release\n", stdout);
-    }
+    fputs(buildmsg, stdout);
 }
 
 static struct option const longopts[] =
@@ -284,7 +280,7 @@ int arghandle(int argc, char **argv){
         break;
 
         case 'v':
-        printf("ysh 0.3\npushing p\n");
+        printf("ysh 0.3\ncome alone with me, and the butterflies and bees\n");
         break;
 
       }
