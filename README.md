@@ -14,7 +14,7 @@
 
 </p>
 
-the yikes shell (also known as ysh) is ~~ a basic shell for linux-based systems.~~ a flaming pile
+the yikes shell (also known as ysh) is ~~a basic shell for linux-based systems.~~ a flaming pile
 of garbage that truly only exists for me to claim "i know C", when in reality, i don't. truthfully, though, it's simply a hobby project to hopefully improve my knowledge of both C and shell systems.
 
 ## building
