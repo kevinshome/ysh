@@ -37,8 +37,6 @@ int dev_build = 1;
 extern char *repstr(char *str, char *orig, char *rep);
 extern int alias_num;
 
-char *git_branch_str;
-
 int exists(const char *fname)
 {
     FILE *file;
@@ -48,36 +46,6 @@ int exists(const char *fname)
         return 1;
     }
     return 0;
-}
-
-int filestuffs(const char *filename){
-    FILE * fp;
-    char * line = NULL;
-    size_t len = 0;
-    ssize_t read;
-
-    fp = fopen(filename, "r");
-    if (fp == NULL)
-        exit(EXIT_FAILURE);
-
-    while ((read = getline(&line, &len, fp)) != -1) {
-        if(strstr(line, "ref: ref/heads/") == 0){
-          int numhere2 = 0;
-          git_branch_str = malloc(128);
-          for(int numhere = 16; (line[numhere] != '\n'); numhere++){
-            if(line[numhere] == '\n'){
-              break;
-            }
-            git_branch_str[numhere2] = line[numhere];
-            numhere2++;
-          }
-        }
-      }
-
-    fclose(fp);
-    if (line)
-        free(line);
-    return 1;
 }
 
 char *read_line(void){
@@ -99,14 +67,9 @@ char **split_line(char *line)
   }
 
   token = strtok(line, TOKEN_DELIM);
-  //printf("%s", token);
   while (token != NULL) {
     tokens[position] = token;
     position++;
-
-    /*if(strcmp(tokens[position], '"') == 0){
-      printf("str delim found\n");
-    }*/
 
     if (position >= bufsize) {
       bufsize += TOKEN_BUFFER;
@@ -221,6 +184,7 @@ void ysh(void){
       }
 
       printf("\33[36m %s@%s (%s) \33[37m \n", user, hostname, cwd);
+      free(buf);
       line = readline("> ");
 
       ysh_hist_mgmt(line);
@@ -321,13 +285,8 @@ int ysh_init(char *filename){
 int main(int argc, char **argv){
 
   //ysh init
-  char *user = getenv("USER");
   char *filename = malloc(128);
-  #ifndef __APPLE__
-  sprintf(filename, "%s%s%s", "/home/", user, "/.yshrc");
-  #else
-  sprintf(filename, "%s%s%s", "/Users/", user, "/.yshrc");
-  #endif
+  sprintf(filename, "%s%s", getenv("HOME"), "/.yshrc");
   ysh_init(filename);
   free(filename);
   //end ysh init
